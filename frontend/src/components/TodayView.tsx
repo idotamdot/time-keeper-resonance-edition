@@ -2,11 +2,13 @@ import { useState } from "react";
 
 interface TodayViewProps {
   stars: number;
+  intention: string;
+  setIntention: (value: string) => void;
 }
 
-export function TodayView({ stars }: TodayViewProps) {
+// 🌞 TodayView Component
+export function TodayView({ stars, intention, setIntention }: TodayViewProps) {
   const [energy, setEnergy] = useState("Balanced");
-  const [intention, setIntention] = useState("");
 
   return (
     <div style={{ background: "linear-gradient(135deg, #e0f7fa, #fce4ec)", padding: "2rem", borderRadius: "1rem" }}>

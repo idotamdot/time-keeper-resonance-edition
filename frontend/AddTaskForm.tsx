@@ -1,53 +1,55 @@
-import { useState } from "react";
+// 📁 frontend/src/components/AddTaskForm.tsx
+import { useState } from 'react'
 
 interface AddTaskFormProps {
-  setTasks: React.Dispatch<
-    React.SetStateAction<{ id: number; title: string; priority: string }[]>
-  >;
+  setTasks: React.Dispatch<React.SetStateAction<{ id: number; title: string; priority: string }[]>>
 }
 
-export function AddTaskForm({ setTasks }: AddTaskFormProps) {
-  const [title, setTitle] = useState("");
-  const [priority, setPriority] = useState("Medium");
+export const AddTaskForm: React.FC<AddTaskFormProps> = ({ setTasks }) => {
+  const [title, setTitle] = useState('')
+  const [priority, setPriority] = useState('Medium')
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
+
+    if (!title.trim()) return
 
     const newTask = {
-      id: Date.now(),
+      id: Date.now(), // 🌟 unique enough for now
       title,
       priority,
-    };
+    }
 
-    setTasks((prev) => [...prev, newTask]);
+    setTasks((prev) => [...prev, newTask])
 
-    setTitle("");
-    setPriority("Medium");
-  };
+    // Reset form
+    setTitle('')
+    setPriority('Medium')
+  }
 
   return (
-    <form onSubmit={handleSubmit} style={{ marginBottom: "2rem" }}>
-      <h3>Add New Task</h3>
+    <form onSubmit={handleSubmit} style={{ marginBottom: '2rem' }}>
       <input
         type="text"
+        placeholder="Enter task..."
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        placeholder="Task title"
-        required
-        style={{ marginRight: "1rem", padding: "0.4rem" }}
+        style={{ marginRight: '1rem', padding: '0.5rem' }}
       />
+
       <select
         value={priority}
         onChange={(e) => setPriority(e.target.value)}
-        style={{ marginRight: "1rem", padding: "0.4rem" }}
+        style={{ marginRight: '1rem', padding: '0.5rem' }}
       >
-        <option>High</option>
-        <option>Medium</option>
-        <option>Low</option>
+        <option value="High">🔥 High</option>
+        <option value="Medium">✨ Medium</option>
+        <option value="Low">🌱 Low</option>
       </select>
-      <button type="submit" style={{ padding: "0.4rem 1rem" }}>
-        ➕ Add
+
+      <button type="submit" style={{ padding: '0.5rem 1rem' }}>
+        ➕ Add Task
       </button>
     </form>
-  );
+  )
 }
